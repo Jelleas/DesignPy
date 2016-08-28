@@ -1,6 +1,8 @@
 import advice as a
 import lib
 
+ADVICEMESSAGE = "exclusively using tabs or spaces for indentation"
+
 def advice():
 	source = lib.source(_fileName)
 	usesSpaces = False
@@ -14,8 +16,6 @@ def advice():
 			else:
 				break
 		if usesSpaces and usesTabs:
-			return a.Advice(a.AdviceLevel.BAD, "use of both tabs and spaces for indentation")
+			return a.Advice(a.AdviceLevel.BAD, ADVICEMESSAGE)
 
-	if usesSpaces:
-		return a.Advice(a.AdviceLevel.GOOD, "only using spaces for indentation")
-	return a.Advice(a.AdviceLevel.GOOD, "only using tabs for indentation")
+	return a.Advice(a.AdviceLevel.GOOD, ADVICEMESSAGE)

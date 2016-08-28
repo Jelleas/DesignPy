@@ -4,9 +4,10 @@ class AdviceLevel:
 	BAD = 3
 	
 class Advice(object):
-	def __init__(self, adviceLevel, message):
+	def __init__(self, adviceLevel, message, annotation = ""):
 		self._adviceLevel = adviceLevel
 		self._message = message
+		self._annotation = annotation
 
 	@property
 	def adviceLevel(self):
@@ -15,3 +16,7 @@ class Advice(object):
 	@property
 	def message(self):
 		return self._message
+
+	@property
+	def annotation(self):
+		return self._annotation
