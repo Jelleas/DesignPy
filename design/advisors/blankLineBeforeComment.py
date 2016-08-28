@@ -17,6 +17,7 @@ class StateMachine(object):
 				state = state.next(line)
 			except StateException as e:
 				return False, str(e)
+		return True, ""
 
 class State(object):
 	def __init__(self, name, errorMessageCreator):
