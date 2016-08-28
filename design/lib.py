@@ -1,3 +1,5 @@
+import re
+
 def source(fileName):
 	source = ""
 	with open(fileName) as f:
@@ -23,3 +25,8 @@ def sourceOfDefinitions(fileName):
 				insideDefinition = False
 
 	return newSource
+
+# source: http://stackoverflow.com/questions/2319019/using-regex-to-remove-comments-from-source-files
+def removeComments(source):
+	source = re.sub(re.compile("\"\"\".*?\"\"\"",re.DOTALL), "", source) # remove all occurance streamed comments ("""COMMENT """) from string
+	return re.sub(re.compile("#.*?\n"), "\n", source) # remove all occurance singleline comments (//COMMENT\n ) from string
