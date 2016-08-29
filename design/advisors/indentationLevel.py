@@ -11,20 +11,20 @@ def advice():
 	source = lib.removeComments(lib.source(_fileName))
 	setIndentationStep(getIndentationStep(source))
 
-	defaultState = sm.State("default", lambda line : "unexpected error occured at: {}".format(line.strip()))
+	defaultState = sm.State("default", lambda line : "incorrect indentation at: {}".format(line.strip()))
 	mustMatchIndentation = sm.State("must match indentation", lambda line : "incorrect indentation at: {}".format(line.strip()))
 	backslash = sm.State("backslash", lambda line : "unexpected error occured at: {}".format(line.strip()))
 
 	defaultState.addTransition(\
 		mustMatchIndentation,\
-		lambda line : endsWithDoubleDot(line),\
+		lambda line : endsWithDoubleDot(line) and matchesIndentationLevelOrLess(line),\
 		action = lambda line : setIndentationLevel(line) and incrementIndentationLevel())
 	defaultState.addTransition(\
 		backslash,\
-		endsWithBackslash)
+		lambda line : endsWithBackslash(line) and matchesIndentationLevelOrLess(line))
 	defaultState.addTransition(\
 		defaultState,\
-		lambda line : (getIndentationLevel(line) <= _indentationLevel),\
+		matchesIndentationLevelOrLess,\
 		action = setIndentationLevel)
 
 	mustMatchIndentation.addTransition(\
@@ -41,7 +41,7 @@ def advice():
 
 	backslash.addTransition(\
 		mustMatchIndentation,\
-		lambda line : endsWithDoubleDot(line),\
+		endsWithDoubleDot,\
 		action = lambda line : incrementIndentationLevel())
 	backslash.addTransition(\
 		backslash,\
@@ -79,6 +79,9 @@ def endsWithDoubleDot(line):
 
 def matchesIndentationLevel(line):
 	return getIndentationLevel(line) == _indentationLevel
+
+def matchesIndentationLevelOrLess(line):
+	return getIndentationLevel(line) <= _indentationLevel
 
 def ifMatchesThenSetIndentationLevel(line):
 	if matchesIndentationLevel(line):
