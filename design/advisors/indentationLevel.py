@@ -11,8 +11,8 @@ def advice():
 	source = lib.removeComments(lib.source(_fileName))
 	setIndentationStep(getIndentationStep(source))
 
-	defaultState = sm.State("default", lambda line : "incorrect indentation at: {}".format(line.strip()))
-	mustMatchIndentation = sm.State("must match indentation", lambda line : "incorrect indentation at: {}".format(line.strip()))
+	defaultState = sm.State("default", lambda line : "inconsistent indentation at: {}".format(line.strip()))
+	mustMatchIndentation = sm.State(u"must match indentation", lambda line : chr(192) + "inconsistent indentation at: {}".format(line.strip()))
 	backslash = sm.State("backslash", lambda line : "unexpected error occured at: {}".format(line.strip()))
 
 	defaultState.addTransition(\

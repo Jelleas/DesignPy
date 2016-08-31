@@ -19,11 +19,9 @@ def display(advice):
 		return
 
 	color, smiley = _selectColorAndSmiley(advice)
-	print "%s%s %s%s" %(color, smiley, advice.message, Colors.ENDC),
+	print "%s%s %s%s" %(color, smiley, advice.message, Colors.ENDC)
 	if advice.annotation:
-		print "-", advice.annotation
-	else:
-		print
+		print "  -", advice.annotation
 
 def _selectColorAndSmiley(advice):
 	if advice.adviceLevel == a.AdviceLevel.GOOD:
