@@ -9,15 +9,15 @@ def advice():
 	multiLine = sm.State("multi line comment", lambda line : "expected a blank line, but got: {}".format(line.strip()))
 	noComment = sm.State("no comment", lambda line : "unexpected error at: {}".format(line.strip()))
 
-	noComment.addTransition(mustBeBlank, lambda line : isSingleLineComment(line))
-	noComment.addTransition(multiLine, lambda line : containsMultiLineComment(line))
+	noComment.addTransition(mustBeBlank, isSingleLineComment)
+	noComment.addTransition(multiLine, containsMultiLineComment)
 	noComment.addTransition(noComment, lambda line : True)
 
-	mustBeBlank.addTransition(noComment, lambda line : isBlank(line))
-	mustBeBlank.addTransition(multiLine, lambda line : containsMultiLineComment(line))
-	mustBeBlank.addTransition(mustBeBlank, lambda line : isSingleLineComment(line))
+	mustBeBlank.addTransition(noComment, isBlank)
+	mustBeBlank.addTransition(multiLine, containsMultiLineComment)
+	mustBeBlank.addTransition(mustBeBlank, isSingleLineComment)
 	
-	multiLine.addTransition(mustBeBlank, lambda line : containsMultiLineComment(line))
+	multiLine.addTransition(mustBeBlank, containsMultiLineComment)
 	multiLine.addTransition(multiLine, lambda line : True)
 
 	success, message = sm.StateMachine(noComment).run(lib.source(_fileName).split("\n")[::-1])
