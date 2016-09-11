@@ -68,7 +68,6 @@ def getIndentationStep(source):
 
 		if line.strip().endswith(":"):
 			nextLineIndented = True
-
 	return ""
 
 def endsWithBackslash(line):
@@ -101,6 +100,9 @@ def incrementIndentationLevel():
 	return True
 
 def getIndentationLevel(line):
+	if _indentationStep == "":
+		return 0
+
 	indentationLevel = 0
 	while line.startswith(_indentationStep):
 		indentationLevel += 1

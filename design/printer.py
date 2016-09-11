@@ -28,7 +28,7 @@ def display(advice):
 def _selectColorAndSmiley(advice):
 	if advice.adviceLevel == a.AdviceLevel.GOOD:
 		return Colors.PASS, Smileys.HAPPY
-	if advice.adviceLevel == a.AdviceLevel.MIXED:
+	if advice.adviceLevel == a.AdviceLevel.MIXED or advice.adviceLevel == a.AdviceLevel.UNSURE:
 		return Colors.WARNING, Smileys.CONFUSED
 	return Colors.FAIL, Smileys.SAD
 
