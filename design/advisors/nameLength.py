@@ -1,7 +1,6 @@
 from __future__ import division
 import advice as a
 import lib
-import re
 import ast
 
 ADVICEMESSAGE = "possibly too short names"

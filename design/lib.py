@@ -30,3 +30,14 @@ def sourceOfDefinitions(fileName):
 def removeComments(source):
 	source = re.sub(re.compile("\"\"\".*?\"\"\"",re.DOTALL), "", source) # remove all occurance streamed comments ("""COMMENT """) from string
 	return re.sub(re.compile("#.*?\n"), "\n", source) # remove all occurance singleline comments (//COMMENT\n ) from string
+
+def replaceCommentsWithHashes(source):
+	isNewLine = lambda c : c == "\n" or c == "\r\n" or c == "\r"
+	replace = lambda m : "".join(["\n" if isNewLine(c) else "#" for c in str(m.group(0))])
+	source = re.sub(re.compile("\"\"\".*?\"\"\"", re.DOTALL), replace, source)
+	return re.sub(re.compile("#.*?\n"), replace, source)
+
+def replaceStringsWithX(source):
+	replace = lambda m : "\"" + "x" * (len(str(m.group(0))) - 2) + "\""
+	source = re.sub(re.compile("\".*?\"", re.DOTALL), replace, source)
+	return re.sub(re.compile("'.*?'", re.DOTALL), replace, source)
