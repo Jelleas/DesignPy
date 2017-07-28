@@ -1,5 +1,5 @@
-import advice as a
-import lib
+import designpy.advice as a
+import designpy.lib as lib
 
 ADVICEMESSAGE = "exclusively using tabs or spaces for indentation"
 

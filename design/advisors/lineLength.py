@@ -1,5 +1,5 @@
-import advice as a
-import lib
+import designpy.advice as a
+import designpy.lib as lib
 
 MAXLINELENGTH = 80
 ADVICEMESSAGE = "all lines contain max {} characters".format(MAXLINELENGTH)

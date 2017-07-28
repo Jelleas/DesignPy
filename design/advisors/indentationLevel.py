@@ -1,6 +1,6 @@
-import advice as a
-import lib
-import statemachine as sm
+import designpy.advice as a
+import designpy.lib as lib
+import designpy.statemachine as sm
 
 ADVICEMESSAGE = "consistent indentation"
 
