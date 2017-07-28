@@ -1,7 +1,7 @@
 from __future__ import division
-import advice as a
-import lib
-import re
+import designpy.advice as a
+import designpy.lib as lib
+import designpy.statemachine as sm
 
 ADVICEMESSAGE = "possibly too few comments"
 

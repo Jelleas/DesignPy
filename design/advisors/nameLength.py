@@ -1,6 +1,6 @@
 from __future__ import division
-import advice as a
-import lib
+import designpy.advice as a
+import designpy.lib as lib
 import ast
 
 ADVICEMESSAGE = "possibly too short names"
